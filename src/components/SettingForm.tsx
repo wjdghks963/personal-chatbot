@@ -32,15 +32,16 @@ export default function SettingForm(){
         localStorage.setItem('settingDataJson', JSON.stringify(settingDataJson));
     }
 
-    return <div className={"mx-auto flex-col"} >
-        <TextInputBox<UserName> propertyRef={userNameRef} identity={"유저 이름"}/>
-        <TextInputBox<AIName> propertyRef={aiNameRef} identity={"AI 이름"}/>
-        <TextInputBox<Concept> propertyRef={conceptRef} identity={"컨셉 ex) 회계사 의사 등.."}/>
-        <ValueInputBox propertyRef={topPRef} identity={"다양성"} range={{max:1, min:0}}/>
-        <ValueInputBox propertyRef={frequencyPenaltyRef} identity={"일관성"} range={{max:2, min:-2}}/>
-        <ValueInputBox propertyRef={presencePenaltyRef} identity={"중복성"} range={{max:2, min:-2}}/>
+    return (
+        <div className={"flex-col w-2/3"} >
+            <TextInputBox<UserName> propertyRef={userNameRef} identity={"유저 이름"} placeholder={"유저 이름"}/>
+            <TextInputBox<AIName> propertyRef={aiNameRef} identity={"AI 이름"} placeholder={"AI 이름"}/>
+            <TextInputBox<Concept> propertyRef={conceptRef} identity={"컨셉"} placeholder={"ex) 의사 개발자"}/>
+            <ValueInputBox propertyRef={topPRef} identity={"다양성"} range={{max:1, min:0}}/>
+            <ValueInputBox propertyRef={frequencyPenaltyRef} identity={"일관성"} range={{max:2, min:-2}}/>
+            <ValueInputBox propertyRef={presencePenaltyRef} identity={"중복성"} range={{max:2, min:-2}}/>
 
-        <button onClick={onSubmit}>시작</button>
-
-    </div>
+            <button onClick={onSubmit} className={"mx-auto py-3 px-10 block  border-blue-300 border-2 rounded-md shadow-md"}>시작</button>
+        </div>
+    )
 }
