@@ -1,7 +1,10 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import getConfig from 'next/config'
 
-const firebaseConfig = process.env.firebaseConfig ?? ""
+const {publicRuntimeConfig} = getConfig()
+const firebaseConfig = publicRuntimeConfig.firebaseConfig;
+
 
 // @ts-ignore
 const FireBaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp();

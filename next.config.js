@@ -13,8 +13,8 @@ const firebaseConfig = {
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  env:{
-    firebaseConfig:firebaseConfig,
+  publicRuntimeConfig:{
+    firebaseConfig
   }
 }
 
