@@ -4,8 +4,9 @@ import {
     getRedirectResult, signInWithPopup,
     signOut, onAuthStateChanged, User
 } from "firebase/auth";
+import {FireBaseApp} from "./Firebase"
 
-export const auth = getAuth();
+export const auth = getAuth(FireBaseApp);
 const GoogleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () =>{
