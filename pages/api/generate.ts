@@ -27,7 +27,8 @@ export default async function handler(
   }
 
   try {
-    const completion = await fetch(process.env.API_URL,{
+    // @ts-ignore
+      const completion = await fetch(process.env.API_URL,{
           method:"POST",
           headers: {
             "Content-Type": "application/json",
