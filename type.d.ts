@@ -14,9 +14,9 @@ interface SettingDataJson {
     userName:string,
     aiName:string,
     concepts:string,
-    topP:number,
-    frequencyPenalty:number,
-    presencePenalty:number
+    topP:string,
+    frequencyPenalty:string,
+    presencePenalty:string
 }
 
 export interface GenerateRequestBody {
