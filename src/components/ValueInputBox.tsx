@@ -55,10 +55,10 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
         <div className={"px-3 py-5 flex-col"}>
             <div className={"flex mb-4 flex justify-between"}>
                 <input onChange={(e)=>onChange(e)} type={"range"} defaultValue={0} min={range.min} max={range.max} step={0.1} ref={propertyRef}/>
-                <span>{identity}의 정도를 설정해주세요</span>
+                <span className={'ml-3'}>{identity}의 정도를 설정해주세요</span>
             </div>
             <div className={"relative"}>
-                {popup ? <InputDescription title={identity} description={description()} cssClassName={"top-10 z-10"} />: null}
+                {popup ? <InputDescription title={identity!} description={description()} cssClassName={"top-10 z-10"} />: null}
             <span className={"cursor-help p-4"} onMouseEnter={()=>descriptionPopupUp()} onMouseOut={()=>descriptionPopupDown()}>{identity} : {value}%</span>
             </div>
         </div>
