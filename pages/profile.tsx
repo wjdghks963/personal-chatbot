@@ -4,7 +4,6 @@ import NavBarLayout from "../src/components/NavBarLayout";
 import {onAuthStateChanged} from "firebase/auth";
 import { SignIn } from "../src/components/user/SignIn";
 import {getSetting} from "../src/libs/firebase/firestorage";
-import {SettingDataJson} from "../type";
 import SettingForm from "../src/components/SettingForm";
 
 
@@ -30,11 +29,6 @@ export default  function Profile(){
         })
         getSettingUserName();
     },[auth.currentUser, isLoggedIn,name])
-
-    const test = () =>{
-        fetch('http://localhost:3000/api/setting').then(e=>e)
-    }
-    console.log(test())
 
     return(
 
