@@ -2,6 +2,8 @@ import TextInputBox from "./TextInputBox";
 import ValueInputBox from "./ValueInputBox";
 import {Dispatch, SetStateAction, useRef} from "react";
 import {AIName, Concept, UserName} from "../../type";
+import {settingTransaction} from "../libs/firebase/firestorage";
+import {auth} from "../libs/firebase/auth"
 
 
 
@@ -13,7 +15,7 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
     const frequencyPenaltyRef = useRef<HTMLInputElement>(null);
     const presencePenaltyRef = useRef<HTMLInputElement>(null);
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const userName = userNameRef?.current?.value;
         const aiName = aiNameRef?.current?.value;
         const concepts = conceptRef?.current?.value;
@@ -29,6 +31,8 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             frequencyPenalty,
             presencePenalty
         }
+
+        await settingTransaction(auth.currentUser?.email, settingDataJson);
 
         localStorage.setItem('settingDataJson', JSON.stringify(settingDataJson));
         
