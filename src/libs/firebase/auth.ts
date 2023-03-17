@@ -1,7 +1,8 @@
 import {
     getAuth,
     GoogleAuthProvider,
-    getRedirectResult, signInWithPopup, onAuthStateChanged
+    getRedirectResult, signInWithPopup,
+    signOut, onAuthStateChanged, User
 } from "firebase/auth";
 
 export const auth = getAuth();
@@ -15,6 +16,7 @@ export const signInWithGoogle = async () =>{
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result?.user;
+
         localStorage.setItem("userEmail", JSON.stringify(user?.email))
 
         return {user, token}
@@ -47,7 +49,15 @@ export const signInWithGoogleResult = async ()=>{
 
 
 
+export const logout = () =>{
+    return auth.signOut();
+}
 
+export const isAuthLoggedIn = () =>{
+     onAuthStateChanged(auth, (user)=>{
+        return user;
+    })
+}
 
 // const actionCodeSettings = {
 //     url: 'https://personal-chat-ba010.firebaseapp.com',
