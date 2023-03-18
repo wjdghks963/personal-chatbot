@@ -5,12 +5,19 @@ import {auth} from '../src/libs/firebase/auth'
 import fetchPost from "../src/utils/fetchPost";
 import ChatBubble from "../src/components/chat/ChatBubble";
 import NavBarLayout from "../src/components/NavBarLayout";
+import {getSetting} from "../src/libs/firebase/firestorage";
 
 export default function Chat(){
     const chatInputRef = useRef<HTMLInputElement>(null);
     const chatsDivRef = useRef<HTMLDivElement>(null);
     const [previousChats, setPreviousChats] = useState<ChatObject[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+
+
+    const getAuthSettingData = async () => {
+        const result = await getSetting(auth.currentUser?.email ?? "")
+        return result
+    }
 
 
     const onSubmit = async (event:any) =>{
@@ -22,7 +29,9 @@ export default function Chat(){
 
         chatInputRef.current!.value = '';
 
-        const settingDataJson:SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? '');
+        const authSetting = await getAuthSettingData()
+
+        const settingDataJson:SettingDataJson = localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : authSetting;
         const isRoleUser:ChatObject[] = previousChats.filter(chat => chat.role === 'user');
         const previousPrompt = isRoleUser.length === 0 ? '' : isRoleUser[isRoleUser.length-1].content;
 
@@ -38,14 +47,16 @@ export default function Chat(){
 
     return (
         <NavBarLayout>
-           <div className={`h-[85vh] flex-col space-y-3 scroll-auto overflow-auto relative mx-3 pb-3`} ref={chatsDivRef}>
-               {previousChats.map((item,index)=><ChatBubble content={item.content} role={item.role} key={index}/>)}
-           </div>
+           <div className={'w-full flex-col flex mx-2'}>
+               <div className={`flex-col flex-1 space-y-3 scroll-auto overflow-auto relative mx-3 pb-3`} ref={chatsDivRef}>
+                   {previousChats.map((item,index)=><ChatBubble content={item.content} role={item.role} key={index}/>)}
+               </div>
 
-           <form onSubmit={onSubmit} className={'flex space-x-2 w-full'}>
-               <ChatInputBox propertyRef={chatInputRef} identity={'prompt'}/>
-               <button className={'border-blue w-1/4 hover:bg-blue-500 hover:text-white'}>보내기</button>
-           </form>
+               <form onSubmit={onSubmit} className={'flex space-x-2 w-full mb-3'}>
+                   <ChatInputBox propertyRef={chatInputRef} identity={'prompt'}/>
+                   <button className={'border-blue w-1/4 hover:bg-blue-500 hover:text-white'}>보내기</button>
+               </form>
+           </div>
         </NavBarLayout>
 
     )
