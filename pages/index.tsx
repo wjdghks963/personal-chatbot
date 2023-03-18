@@ -1,17 +1,13 @@
-import { useState } from "react";
 import Head from "next/head";
-import SettingForm from "../src/components/SettingForm";
-import {GenerateRequestBody, OpenAiApiResponse, SettingDataJson} from "../type";
-import useFetchPost from "../src/utils/fetchPost";
+import {useRouter} from "next/router";
 
 
 export default function Home() {
-    const [formToggle, setFormToggle] = useState<boolean>(false);
-    const [prompt, setPrompt] = useState<string>("");
-    const [result, setResult] = useState<any>("");
+    const router = useRouter();
 
-
-
+    const goToProfile = () =>{
+        return router.replace('/profile');
+    }
 
     return (
         <div>
@@ -19,10 +15,9 @@ export default function Home() {
                 <title>Learn OpenAI</title>
             </Head>
 
-            <main className={`flex justify-center h-[100vh]`}>
-                {formToggle ? <SettingForm setFormToggle={setFormToggle}/> : null}
-                <div className={`w-full h-full ${formToggle ? 'popupOpen' : null}`}>
-                    <span onClick={()=>setFormToggle(prev=>!prev)}>시작하기</span>
+            <main className={`h-screen`}>
+                <div className={`w-full h-full justify-center items-center flex`}>
+                    <button className={'text-center mx-auto block border-blue p-3'} onClick={goToProfile}>시작하기</button>
                 </div>
             </main>
         </div>
