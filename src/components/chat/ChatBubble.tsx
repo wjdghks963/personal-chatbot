@@ -2,15 +2,10 @@ import {ChatObject, SettingDataJson} from "../../../type";
 
 
 export default function ChatBubble({role, content}:ChatObject){
-
-     const item : SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? `{
-         concepts: "",
-         frequencyPenalty: 0,
-         presencePenalty: 0,
-         topP: 0,
-         aiName: "나", userName: "AI" }`) ;
+console.log(JSON.parse('{"concepts": "","frequencyPenalty": 0,"presencePenalty": 0,"topP": 0,"aiName": "나", "userName": "AI" }'))
 
 
+     const item : SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? '{"concepts": "","frequencyPenalty": 0,"presencePenalty": 0,"topP": 0,"aiName": "나", "userName": "AI" }');
 
     const name = role === 'user' ? item.userName : item.aiName;
 
