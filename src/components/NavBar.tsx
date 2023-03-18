@@ -33,7 +33,7 @@ export default function NavBar(){
                 </div>
                 <div className="block" onClick={toggleMenuBar}>
                     <button
-                        className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                        className="flex items-center px-3 py-2 border rounded border-white text-white hover:text-white hover:border-white">
                         <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <title>Menu</title>
                             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -41,7 +41,7 @@ export default function NavBar(){
                     </button>
                 </div>
             </nav>
-            <div className={`w-1/3 absolute px-3 h-full right-0 z-20 bg-blue-500 flex-grow transition-all origin-right ${isMenuBarOpen === null && 'hidden' } ${isMenuBarOpen ? 'animate-slideOpenAnim' : 'animate-slideCloseAnim'} text-white hover:text-white`}>
+            <div className={`w-1/3 absolute px-3 h-full right-0 z-20 bg-blue-500 transition-all origin-right ${isMenuBarOpen === null && 'hidden' } ${isMenuBarOpen ? 'animate-slideOpenAnim' : 'animate-slideCloseAnim'} text-white hover:text-white`}>
                 <div className="text-sm pl-3 space-y-7 ">
                     <div onClick={()=>goToPath('/chat')} className={`gap-2 cursor-pointer flex mt-4 text-blue-200 hover:text-white mr-4`}>
                         <svg className={`w-6`} fill="white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
