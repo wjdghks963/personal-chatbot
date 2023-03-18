@@ -21,14 +21,15 @@ export default function NavBar(){
 
 
     return (
-        <>
-            <nav className="flex relative w-full items-center justify-between flex-wrap bg-blue-500 p-3 z-2">
+        <div className={'relative '}>
+            <nav className="flex w-full items-center justify-between flex-wrap bg-blue-500 p-3 z-2">
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
-                    <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/>
+                    <svg className={'h-8 w-8 mr-2'} fill="white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
                     </svg>
+
+
                     <span className="font-semibold text-xl tracking-tight">OA</span>
                 </div>
                 <div className="block" onClick={toggleMenuBar}>
@@ -41,7 +42,7 @@ export default function NavBar(){
                     </button>
                 </div>
             </nav>
-            <div className={`w-1/3 absolute px-3 h-full right-0 z-20 bg-blue-500 transition-all origin-right ${isMenuBarOpen === null && 'hidden' } ${isMenuBarOpen ? 'animate-slideOpenAnim' : 'animate-slideCloseAnim'} text-white hover:text-white`}>
+            <div className={`w-1/3 absolute pb-5 px-3 right-0 z-20 bg-blue-500 transition-all origin-right ${isMenuBarOpen === null && 'hidden' } ${isMenuBarOpen ? 'animate-slideOpenAnim' : 'animate-slideCloseAnim'} text-white hover:text-white`}>
                 <div className="text-sm pl-3 space-y-7 ">
                     <div onClick={()=>goToPath('/chat')} className={`gap-2 cursor-pointer flex mt-4 text-blue-200 hover:text-white mr-4`}>
                         <svg className={`w-6`} fill="white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -57,7 +58,7 @@ export default function NavBar(){
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }

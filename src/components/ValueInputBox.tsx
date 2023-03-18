@@ -59,7 +59,8 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
             </div>
             <div className={"relative"}>
                 {popup ? <InputDescription title={identity!} description={description()} cssClassName={"top-10 z-10"} />: null}
-            <span className={"cursor-help p-4"} onMouseEnter={()=>descriptionPopupUp()} onMouseOut={()=>descriptionPopupDown()}>{identity} : {value}%</span>
+
+            <span className={"cursor-help p-3 block "} onMouseEnter={()=>descriptionPopupUp()} onMouseOut={()=>descriptionPopupDown()}> {identity} : {value}%</span>
             </div>
         </div>
     )
