@@ -3,17 +3,14 @@ import type {  NextApiResponse } from 'next'
 import {Configuration, OpenAIApi} from "openai";
 import {GenerateRequestBody} from "../../type";
 import {NextRequest} from "next/server";
+import getConfig from "next/config";
 
 
 export const config = {
-  runtime: 'experimental-edge'
+  runtime: 'edge'
 }
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY || "",
-});
-
-const openai = new OpenAIApi(configuration);
+const {publicRuntimeConfig} = getConfig();
 
 
 export default async function handler(
@@ -35,7 +32,7 @@ export default async function handler(
             Authorization: "Bearer " + String(process.env.OPENAI_API_KEY),
           },
           body:JSON.stringify({
-            model: process.env.MODEL_ID || "gpt-3.5-turbo",
+            model: publicRuntimeConfig.openApiModel || "gpt-3.5-turbo",
             messages:[
               {"role": "system", "content": `You are a helpful assistant. assistant name is ${settingDataJson.aiName}`},
               {"role": "system", "content": `you are role is ${settingDataJson.concepts}. user name is ${settingDataJson.userName}`},
