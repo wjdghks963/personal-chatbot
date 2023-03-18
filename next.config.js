@@ -14,7 +14,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   publicRuntimeConfig:{
-    firebaseConfig
+    firebaseConfig,
+    openApiModel:process.env.MODEL_ID
   }
 }
 
