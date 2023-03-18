@@ -22,7 +22,7 @@ export default function Chat(){
 
         chatInputRef.current!.value = '';
 
-        const settingDataJson:SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? "");
+        const settingDataJson:SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? '');
         const isRoleUser:ChatObject[] = previousChats.filter(chat => chat.role === 'user');
         const previousPrompt = isRoleUser.length === 0 ? '' : isRoleUser[isRoleUser.length-1].content;
 
@@ -37,16 +37,16 @@ export default function Chat(){
 
 
     return (
-                <NavBarLayout>
-                    <div className={`flex-col h-4/5 space-y-3 scroll-auto overflow-auto relative mx-3`} ref={chatsDivRef}>
-                        {previousChats.map((item,index)=><ChatBubble content={item.content} role={item.role} key={index}/>)}
-                    </div>
+        <NavBarLayout>
+           <div className={`h-[85vh] flex-col space-y-3 scroll-auto overflow-auto relative mx-3 pb-3`} ref={chatsDivRef}>
+               {previousChats.map((item,index)=><ChatBubble content={item.content} role={item.role} key={index}/>)}
+           </div>
 
-                    <form onSubmit={onSubmit} className={'flex space-x-2 w-full mt-5'}>
-                        <ChatInputBox propertyRef={chatInputRef} identity={'prompt'}/>
-                        <button className={'border-blue w-1/4 hover:bg-blue-500 hover:text-white'}>보내기</button>
-                    </form>
-                </NavBarLayout>
+           <form onSubmit={onSubmit} className={'flex space-x-2 w-full'}>
+               <ChatInputBox propertyRef={chatInputRef} identity={'prompt'}/>
+               <button className={'border-blue w-1/4 hover:bg-blue-500 hover:text-white'}>보내기</button>
+           </form>
+        </NavBarLayout>
 
-)
+    )
 }

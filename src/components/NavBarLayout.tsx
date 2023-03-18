@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
 import React from "react";
-import Head from "next/head";
 import SEO from "./SEO/Head";
 
 export default function NavBarLayout({children}:{children:React.ReactNode}){
@@ -9,13 +8,11 @@ export default function NavBarLayout({children}:{children:React.ReactNode}){
     return (
         <>
         <SEO title={'OA'}/>
-        <main className={`h-[100vh] flex-col`}>
-
-            <div className={`h-full relative`}>
+        <main className={`h-screen flex-col`}>
+            <NavBar/>
+            <div className={`max-h-screen`}>
                 {children}
             </div>
-            <NavBar/>
-
         </main>
         </>)
 }
