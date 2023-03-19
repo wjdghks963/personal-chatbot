@@ -1,5 +1,5 @@
 import {ChatObject, SettingDataJson} from "../../../type";
-
+import temporaryJson from "../../assets/settingDataJson.json";
 interface ChatBubbleObject extends ChatObject {
     loading?:boolean
 }
@@ -9,11 +9,10 @@ export default function ChatBubble({role, content, loading}:ChatBubbleObject){
 
     const item = (): SettingDataJson => {
 
-        const temporaryJson = '{"concepts": "","frequencyPenalty": 0,"presencePenalty": 0,"topP": 0,"aiName": "나", "userName": "AI" }';
         if(typeof window !== 'undefined'){
-            return JSON.parse( localStorage?.getItem('settingDataJson') ?? temporaryJson);
+            return JSON.parse( localStorage?.getItem('settingDataJson') ?? `${temporaryJson}`);
         }
-        return JSON.parse(temporaryJson);
+        return JSON.parse(`${temporaryJson}`);
     }
 
 
