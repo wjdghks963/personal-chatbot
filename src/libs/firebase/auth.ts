@@ -18,7 +18,6 @@ export const signInWithGoogle = async () =>{
         const token = credential?.accessToken;
         const user = result?.user;
 
-        localStorage.setItem("userEmail", JSON.stringify(user?.email))
 
         return {user, token}
     }catch (error : any){
