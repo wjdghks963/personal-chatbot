@@ -1,6 +1,7 @@
 import type {  NextApiResponse } from 'next'
 import {GenerateRequestBody} from "../../type";
 import {NextRequest} from "next/server";
+import {Configuration, OpenAIApi} from "openai";
 
 
 export const config = {
@@ -27,6 +28,7 @@ export default async function handler(
             "Content-Type": "application/json",
             Authorization: "Bearer " + String(process.env.OPENAI_API_KEY),
           },
+          timeout: 10 * 1000,
           body:JSON.stringify({
             model:  "gpt-3.5-turbo",
             messages:[
@@ -48,8 +50,9 @@ export default async function handler(
 
     return new Response(JSON.stringify({ result: data }))
   } catch(error:any) {
+      console.log(error)
     if (error) {
-      console.error(error.response.status, error.response.data);
+        console.error(error.response.status, error.response.data);
         return new Response(JSON.stringify({status:error.response.status, data:error.response.data}))
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
