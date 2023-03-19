@@ -15,6 +15,9 @@ const nextConfig = {
   swcMinify: true,
   publicRuntimeConfig:{
     firebaseConfig,
+  },
+  images:{
+    formats:['image/avif','image/webp']
   }
 }
 
