@@ -1,4 +1,4 @@
-import {ProviderMapObject} from "../../pages/sign-in";
+import {ProviderMapObject} from "./user/SignIn";
 import Image from "next/image";
 
 export default function LoginWithProvider({providerMap, providerKey}:{providerMap?:ProviderMapObject, providerKey:string}){
