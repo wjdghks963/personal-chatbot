@@ -5,7 +5,6 @@ import {onAuthStateChanged} from "firebase/auth";
 import { SignIn } from "../src/components/user/SignIn";
 import {getSetting} from "../src/libs/firebase/firestorage";
 import SettingForm from "../src/components/SettingForm";
-import {SettingDataJson} from "../type";
 import temporaryJson from "../src/assets/settingDataJson.json"
 
 export default  function Profile(){
