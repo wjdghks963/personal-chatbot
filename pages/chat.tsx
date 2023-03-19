@@ -5,9 +5,8 @@ import {auth} from '../src/libs/firebase/auth'
 import fetchPost from "../src/utils/fetchPost";
 import ChatBubble from "../src/components/chat/ChatBubble";
 import NavBarLayout from "../src/components/NavBarLayout";
-import {getSetting} from "../src/libs/firebase/firestorage";
 import {useSelector} from "react-redux";
-
+import temporaryJson from "../src/assets/settingDataJson.json";
 
 interface selectorClearChatToggle{
     clearChatsReducer:{
@@ -23,9 +22,7 @@ export default function Chat(){
 
     const chatClearToggle = useSelector((state : selectorClearChatToggle) => state.clearChatsReducer.toggle)
 
-    const getAuthSettingData = async () => {
-        return await getSetting(auth.currentUser?.email ?? "")
-    }
+
 
     const onSubmit = async (event:any) =>{
         event.preventDefault();
@@ -38,9 +35,8 @@ export default function Chat(){
 
         chatInputRef.current!.value = '';
 
-        const authSetting = await getAuthSettingData()
 
-        const settingDataJson:SettingDataJson = localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : authSetting;
+        const settingDataJson:SettingDataJson = localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : temporaryJson;
         const isRoleUser:ChatObject[] = previousChats.filter(chat => chat.role === 'user');
         const previousPrompt = isRoleUser.length === 0 ? '' : isRoleUser[isRoleUser.length-1].content;
 

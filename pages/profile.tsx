@@ -6,28 +6,26 @@ import { SignIn } from "../src/components/user/SignIn";
 import {getSetting} from "../src/libs/firebase/firestorage";
 import SettingForm from "../src/components/SettingForm";
 import {SettingDataJson} from "../type";
-
+import temporaryJson from "../src/assets/settingDataJson.json"
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
     const [formToggle,setFormToggle] = useState<boolean>(false);
     const [name, setName] = useState('유저');
 
-    const getSettingUserName = async () =>{
-        const localSettingData:SettingDataJson | ""= JSON.parse(localStorage.getItem('settingDataJson') ?? '{}');
-
-        if(auth.currentUser){
-           try{
-               const result= await getSetting(auth.currentUser?.email ?? '');
-               if(result?.userName === "") {
-                   setName(auth.currentUser.displayName!)
-               }else{
-                   setName(result?.userName);
-               }
-           }catch (e:any){
-               // @ts-ignore
-               setName(localSettingData.userName ?? "유저");
-           }
+    const getAuthSettingData = async (email:string|null) => {
+        try{
+            const settingData = await getSetting(email ?? "");
+            if(settingData?.userName === "") {
+                setName(auth.currentUser?.displayName!)
+            }else{
+                setName(settingData?.userName);
+            }
+        return settingData
+        } catch (e:any){
+            console.log(e)
+            setName("유저")
+            return temporaryJson
         }
 
     }
@@ -36,12 +34,15 @@ export default  function Profile(){
     useEffect( ()=>{
         onAuthStateChanged(auth, user=>{
             if(user){
+                getAuthSettingData(user.email).then(settingData=>{
+                    const json = JSON.stringify(settingData)
+                    return localStorage.setItem('settingDataJson',json)
+                })
                 setIsLoggedIn(true);
             }else{
                 setIsLoggedIn(false)
             }
         })
-        getSettingUserName();
     },[auth.currentUser, isLoggedIn,name])
 
     return(
