@@ -46,7 +46,7 @@ export default  function Profile(){
 
     return(
 
-    <NavBarLayout>
+    <NavBarLayout styleAdd={'flex-col items-center justify-center'}>
         {formToggle && <SettingForm setFormToggle={setFormToggle}/>}
             <div className={`flex w-full h-full ${formToggle ? 'popupOpen' : null} `}>
                 {!isLoggedIn ? <SignIn/> : (
@@ -62,6 +62,9 @@ export default  function Profile(){
                     </div>
                     )}
             </div>
+        <span className={`block text-center mx-10 text-slate-400 mb-3`}>
+            도움이 필요하시다면 chsw000@gmail.com 로 연락해주세요
+        </span>
     </NavBarLayout>
     )
 }
