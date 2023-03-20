@@ -2,7 +2,7 @@ import {
     getAuth,
     GoogleAuthProvider,
     getRedirectResult, signInWithPopup,
-    signOut, onAuthStateChanged, User
+    signOut, onAuthStateChanged, User, browserLocalPersistence, setPersistence
 } from "firebase/auth";
 import {FireBaseApp} from "./Firebase"
 
@@ -12,20 +12,23 @@ const GoogleProvider = new GoogleAuthProvider();
 export const signInWithGoogle = async () =>{
    //await signInWithRedirect(auth, GoogleProvider);
 
-    try{
-        const result = await signInWithPopup(auth, GoogleProvider)
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const user = result?.user;
+    setPersistence(auth, browserLocalPersistence).then(async()=>{
+        try{
+            const result = await signInWithPopup(auth, GoogleProvider)
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+            const user = result?.user;
 
 
-        return {user, token}
-    }catch (error : any){
-        const errorCode = error.code;
-        const errorMessage = error.message;
+            return {user, token}
+        }catch (error : any){
+            const errorCode = error.code;
+            const errorMessage = error.message;
 
-        return {errorCode, errorMessage}
-    }
+            return {errorCode, errorMessage}
+        }
+    })
+
 }
 
 export const signInWithGoogleResult = async ()=>{
