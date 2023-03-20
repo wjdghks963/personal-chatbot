@@ -10,9 +10,9 @@ export default function ChatBubble({role, content, loading}:ChatBubbleObject){
     const item = (): SettingDataJson => {
 
         if(typeof window !== 'undefined'){
-            return JSON.parse( localStorage?.getItem('settingDataJson') ?? `${temporaryJson}`);
+            return JSON.parse( localStorage?.getItem('settingDataJson') ?? JSON.stringify(temporaryJson));
         }
-        return JSON.parse(`${temporaryJson}`);
+        return JSON.parse(JSON.stringify(temporaryJson));
     }
 
 

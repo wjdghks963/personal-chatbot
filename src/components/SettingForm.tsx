@@ -1,9 +1,10 @@
 import TextInputBox from "./TextInputBox";
 import ValueInputBox from "./ValueInputBox";
-import {Dispatch, SetStateAction, useRef} from "react";
+import {Dispatch, SetStateAction, useEffect, useRef} from "react";
 import {AIName, Concept, SettingDataJson, UserName} from "../../type";
 import {settingTransaction} from "../libs/firebase/firestorage";
 import {auth} from "../libs/firebase/auth"
+import temporaryJson from "../assets/settingDataJson.json";
 
 
 
@@ -35,13 +36,25 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
         await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
 
         localStorage.setItem('settingDataJson', JSON.stringify(settingDataJson));
-        
-
 
         if(setFormToggle){
             return setFormToggle(prev=>!prev)
         }
     }
+
+
+    useEffect(()=>{
+
+        const settingDataJson:SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? JSON.stringify(temporaryJson)) ;
+
+        userNameRef.current!.value = settingDataJson.userName;
+        aiNameRef.current!.value = settingDataJson.aiName;
+        conceptRef.current!.value = settingDataJson.concepts;
+        topPRef.current!.value = settingDataJson.topP;
+        frequencyPenaltyRef.current!.value = settingDataJson.frequencyPenalty;
+        presencePenaltyRef.current!.value = settingDataJson.presencePenalty;
+    },[])
+
 
     return (
         <div className={"flex-col px-2 absolute bg-white top-10 z-30 border-blue shadow-md"} >
