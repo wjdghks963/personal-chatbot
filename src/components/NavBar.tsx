@@ -2,6 +2,7 @@ import {useRouter} from "next/router";
 import { useState} from "react";
 import {useDispatch} from "react-redux";
 import {setToggle} from "../../store/modules/clearChats";
+import {auth} from "../libs/firebase/auth";
 
 export default function NavBar(){
     const router = useRouter();
@@ -12,6 +13,7 @@ export default function NavBar(){
 
 
     const goToPath = (path:string) => {
+        if(auth.currentUser === null) return;
         if(nowLocation !== path){
             return router.push(`${path}`);
         }else{

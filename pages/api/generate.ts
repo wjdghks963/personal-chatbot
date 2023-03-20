@@ -16,7 +16,7 @@ export default async function handler(
   const {prompt, previousPrompt, settingDataJson, userEmail}:GenerateRequestBody = await req.json();
 
   if (settingDataJson === null || prompt === null) {
-    return res.status(400).json({error:'body is empty'});
+    return new Response(JSON.stringify({error:'body is empty'}));
   }
 
   try {
@@ -55,11 +55,12 @@ export default async function handler(
         return new Response(JSON.stringify({status:error.response.status, data:error.response.data}))
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
-       res.status(500).json({
+       return new Response(JSON.stringify({
         error: {
-          message: 'An error occurred during your request.',
+          message: 'An error occurred during your request.'
         }
-      });
+      }));
+
     }
   }
 }

@@ -2,7 +2,8 @@ import {
     getAuth,
     GoogleAuthProvider,
     getRedirectResult, signInWithPopup,
-    signOut, onAuthStateChanged, User, browserLocalPersistence, setPersistence
+    onAuthStateChanged,  browserLocalPersistence, setPersistence,
+    signInAnonymously
 } from "firebase/auth";
 import {FireBaseApp} from "./Firebase"
 
@@ -12,15 +13,14 @@ const GoogleProvider = new GoogleAuthProvider();
 export const signInWithGoogle = async () =>{
    //await signInWithRedirect(auth, GoogleProvider);
 
-    setPersistence(auth, browserLocalPersistence).then(async()=>{
+    return setPersistence(auth, browserLocalPersistence).then(async()=>{
         try{
             const result = await signInWithPopup(auth, GoogleProvider)
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
             const user = result?.user;
+            const idToken = credential?.idToken
 
-
-            return {user, token}
+            return {user, idToken}
         }catch (error : any){
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -51,8 +51,23 @@ export const signInWithGoogleResult = async ()=>{
 }
 
 
+export const signInWithAnonymous = async ( )=>{
+    try{
+        await signInAnonymously(auth);
+    }catch (e:any){
+        console.log(e);
+    }
+}
+
+export const signAnonymousToGooglePermanent =  (idToken:string) =>{
+
+    return GoogleAuthProvider.credential(idToken);
+}
 
 export const logout = () =>{
+    if(auth.currentUser?.isAnonymous){
+        return auth.currentUser.delete();
+    }
     return auth.signOut();
 }
 
@@ -61,22 +76,3 @@ export const isAuthLoggedIn = () =>{
         return user;
     })
 }
-
-// const actionCodeSettings = {
-//     url: 'https://personal-chat-ba010.firebaseapp.com',
-//     iOS:{
-//         bundleId:'com.learnopenai.ios'
-//     },
-//     android:{
-//         packageName:'com.learnopenai.android',
-//         installApp:true,
-//         minimumVersion: '12'
-//     },
-//     handleCodeInApp: true,
-//     dynamicLinkDomain: "learnopenai.page.link"
-// }
-//
-// export const loginWithExistEmail = async (email:string) =>{
-//     await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-// }
-

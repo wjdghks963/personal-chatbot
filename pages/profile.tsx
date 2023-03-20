@@ -6,20 +6,24 @@ import { SignIn } from "../src/components/user/SignIn";
 import {getSetting} from "../src/libs/firebase/firestorage";
 import SettingForm from "../src/components/SettingForm";
 import temporaryJson from "../src/assets/settingDataJson.json"
+import Link from "next/link";
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
     const [formToggle,setFormToggle] = useState<boolean>(false);
     const [name, setName] = useState('유저');
 
+
+    const isAnonymous = auth.currentUser?.isAnonymous;
+
+
     const getAuthSettingData = async (email:string|null) => {
         try{
             const settingData = await getSetting(email ?? "");
             if(settingData?.userName === "") {
                 setName(auth.currentUser?.displayName!)
-            }else{
-                setName(settingData?.userName);
             }
+            if(settingData === undefined) return temporaryJson
         return settingData
         } catch (e:any){
             console.log(e)
@@ -33,10 +37,17 @@ export default  function Profile(){
     useEffect( ()=>{
         onAuthStateChanged(auth, user=>{
             if(user){
-                getAuthSettingData(user.email).then(settingData=>{
-                    const json = JSON.stringify(settingData)
-                    return localStorage.setItem('settingDataJson',json)
-                })
+
+                if(isAnonymous){
+                    setName('익명')
+                    return localStorage.setItem('settingDataJson', JSON.stringify(temporaryJson));
+
+                }else{
+                    getAuthSettingData(user.email).then(settingData=>{
+                        const json = JSON.stringify(settingData)
+                        return localStorage.setItem('settingDataJson',json)
+                    })
+                }
                 setIsLoggedIn(true);
             }else{
                 setIsLoggedIn(false)
@@ -53,6 +64,7 @@ export default  function Profile(){
                     <div className={`w-full flex-col space-y-36 text-center flex-grow my-32 `}>
                         <div className={'flex-col flex-none'}>
                             <span className={`block font-semibold`}>{name}</span>
+                            {/*{isAnonymous ? <Link href={'/sign-in'}><span className={'block mt-3'}>가입하기</span></Link> : <span className={`block font-semibold`}>{auth.currentUser?.email}</span>}*/}
                             <span className={`block font-semibold`}>{auth.currentUser?.email}</span>
                         </div>
                         <div className={'flex-col space-y-3'}>
