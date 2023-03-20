@@ -71,6 +71,10 @@ export const logout = () =>{
     return auth.signOut();
 }
 
+export const withDrawalUser =  () =>{
+    return auth.currentUser?.delete()
+}
+
 export const isAuthLoggedIn = () =>{
      onAuthStateChanged(auth, (user)=>{
         return user;

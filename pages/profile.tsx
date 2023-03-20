@@ -7,6 +7,7 @@ import {getSetting} from "../src/libs/firebase/firestorage";
 import SettingForm from "../src/components/SettingForm";
 import temporaryJson from "../src/assets/settingDataJson.json"
 import Link from "next/link";
+import IsLoggedInSpan from "../src/components/user/IsLoggedInSpan";
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
@@ -61,11 +62,11 @@ export default  function Profile(){
         {formToggle && <SettingForm setFormToggle={setFormToggle}/>}
             <div className={`flex w-full h-full ${formToggle ? 'popupOpen' : null} `}>
                 {!isLoggedIn ? <SignIn/> : (
-                    <div className={`w-full flex-col space-y-36 text-center flex-grow my-32 `}>
+                    <div className={`w-full flex-col space-y-12 text-center flex-grow my-32 `}>
                         <div className={'flex-col flex-none'}>
                             <span className={`block font-semibold`}>{name}</span>
                             {/*{isAnonymous ? <Link href={'/sign-in'}><span className={'block mt-3'}>가입하기</span></Link> : <span className={`block font-semibold`}>{auth.currentUser?.email}</span>}*/}
-                            <span className={`block font-semibold`}>{auth.currentUser?.email}</span>
+                            <IsLoggedInSpan/>
                         </div>
                         <div className={'flex-col space-y-3'}>
                             <span className={'block border-blue mx-auto p-3 hover:text-white hover:bg-blue-500 w-1/3'} onClick={()=>setFormToggle(true)}>설정</span>
