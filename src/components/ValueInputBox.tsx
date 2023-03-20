@@ -1,4 +1,4 @@
-import {ChangeEvent, useRef, useState} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {InputBoxProps} from "../../type";
 import InputDescription from "./InputDescription";
 
@@ -33,14 +33,18 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
        return text;
    }
 
-    const onChange = (e:ChangeEvent<HTMLInputElement>)=>{
+   const setPercentValue = (targetValue:number) =>{
        let totalValue = 0;
 
        for(let i = range.min; i<range.max; i++){
            totalValue++;
        }
-        let percent = +(((+e.target.value) / totalValue) * 100).toFixed(1);
-        setValue(percent);
+       let percent = +(((+targetValue) / totalValue) * 100).toFixed(1);
+       setValue(percent);
+   }
+
+    const onChange = (e:ChangeEvent<HTMLInputElement>)=>{
+        setPercentValue(+e.currentTarget.value);
     }
 
     const descriptionPopupUp = () =>{
@@ -50,6 +54,10 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
     const descriptionPopupDown = () =>{
         setPopup(false)
     }
+
+    useEffect(()=>{
+        setPercentValue(+propertyRef.current!.value);
+    },[propertyRef])
 
     return (
         <div className={"px-3 py-5 flex-col"}>
