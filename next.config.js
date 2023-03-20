@@ -21,10 +21,7 @@ const nextConfig = {
   images:{
     formats:['image/avif','image/webp'],
     disableStaticImages: false,
-domains:[productionURL]
   },
-  assetPrefix: isProduction ? productionURL : '',
-
 }
 
 module.exports = nextConfig

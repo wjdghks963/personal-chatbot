@@ -1,7 +1,6 @@
 import type {  NextApiResponse } from 'next'
 import {GenerateRequestBody} from "../../type";
 import {NextRequest} from "next/server";
-import {Configuration, OpenAIApi} from "openai";
 
 
 export const config = {
