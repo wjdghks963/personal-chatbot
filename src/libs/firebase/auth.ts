@@ -53,7 +53,7 @@ export const signInWithGoogleResult = async ()=>{
 
 export const signInWithAnonymous = async ( )=>{
     try{
-        await signInAnonymously(auth);
+        return await signInAnonymously(auth);
     }catch (e:any){
         console.log(e);
     }

@@ -3,7 +3,6 @@ import {auth, withDrawalUser} from "../../libs/firebase/auth";
 export default function IsLoggedInSpan(){
 
     const withDrawlOnClick = () =>{
-
         withDrawalUser()
     }
 

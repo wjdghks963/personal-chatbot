@@ -1,6 +1,5 @@
 import {ProviderMapObject} from "./user/SignIn";
 import Image from "next/image";
-import {auth} from "../libs/firebase/auth"
 
 export default function LoginWithProvider({providerMap, providerKey,isConvert}:{providerMap?:ProviderMapObject, providerKey:string,isConvert?:boolean}){
 

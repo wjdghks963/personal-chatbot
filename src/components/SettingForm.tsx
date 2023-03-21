@@ -33,12 +33,14 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             presencePenalty:presencePenalty ?? '1'
         }
 
-        await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
+        if(!auth.currentUser?.isAnonymous){
+            await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
+        }
 
         localStorage.setItem('settingDataJson', JSON.stringify(settingDataJson));
 
         if(setFormToggle){
-            return setFormToggle(prev=>!prev)
+            return setFormToggle(false)
         }
     }
 

@@ -1,7 +1,7 @@
 import google from "../../assets/google.svg";
 import email from "../../assets/email.svg"
 import anonymous from "../../assets/anonymous.svg"
-import {signAnonymousToGooglePermanent, signInWithAnonymous, signInWithGoogle} from "../../libs/firebase/auth";
+import { signInWithAnonymous, signInWithGoogle} from "../../libs/firebase/auth";
 import LoginWithProvider from "../LoginWithProvider"
 
 

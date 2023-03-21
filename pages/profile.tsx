@@ -6,7 +6,6 @@ import { SignIn } from "../src/components/user/SignIn";
 import {getSetting} from "../src/libs/firebase/firestorage";
 import SettingForm from "../src/components/SettingForm";
 import temporaryJson from "../src/assets/settingDataJson.json"
-import Link from "next/link";
 import IsLoggedInSpan from "../src/components/user/IsLoggedInSpan";
 
 export default  function Profile(){
@@ -15,7 +14,6 @@ export default  function Profile(){
     const [name, setName] = useState('유저');
 
 
-    const isAnonymous = auth.currentUser?.isAnonymous;
 
 
     const getAuthSettingData = async (email:string|null) => {
@@ -36,22 +34,22 @@ export default  function Profile(){
 
 
     useEffect( ()=>{
+
         onAuthStateChanged(auth, user=>{
+            console.log(user)
             if(user){
-
-                if(isAnonymous){
+                if(user.isAnonymous){
                     setName('익명')
-                    return localStorage.setItem('settingDataJson', JSON.stringify(temporaryJson));
-
+                    localStorage.setItem('settingDataJson', JSON.stringify(temporaryJson));
                 }else{
                     getAuthSettingData(user.email).then(settingData=>{
                         const json = JSON.stringify(settingData)
-                        return localStorage.setItem('settingDataJson',json)
+                         localStorage.setItem('settingDataJson',json)
                     })
                 }
-                setIsLoggedIn(true);
+                return setIsLoggedIn(true);
             }else{
-                setIsLoggedIn(false)
+                return setIsLoggedIn(false)
             }
         })
     },[auth.currentUser, isLoggedIn,name])

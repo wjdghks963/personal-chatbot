@@ -33,7 +33,6 @@ export default function NavBar(){
     }
 
 
-
     return (
         <div className={'relative '}>
             <nav className="flex w-full items-center justify-between flex-wrap bg-blue-500 p-3 z-2">
