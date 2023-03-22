@@ -1,7 +1,9 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
 import Link from "next/link";
-
+import {useEffect} from "react";
+import {auth} from "../src/libs/firebase/auth";
+import {onAuthStateChanged} from "firebase/auth";
 
 export default function Home() {
     const router = useRouter();
@@ -9,6 +11,13 @@ export default function Home() {
     const goToProfile = () =>{
         return router.replace('/profile');
     }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user)=>{
+            if(user) return router.replace("/chat");
+        })
+    },[])
+
 
     return (
         <div>

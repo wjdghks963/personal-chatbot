@@ -36,7 +36,6 @@ export default  function Profile(){
     useEffect( ()=>{
 
         onAuthStateChanged(auth, user=>{
-            console.log(user)
             if(user){
                 if(user.isAnonymous){
                     setName('익명')
