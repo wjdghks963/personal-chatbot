@@ -1,4 +1,4 @@
-import {ChatObject, GenerateRequestBody, OpenAiApiResponse, SettingDataJson} from "../type";
+import {ChatObject, GenerateRequestBody, OpenAiApiResponse, selectorClearChatToggle, SettingDataJson} from "../type";
 import ChatInputBox from "../src/components/chat/ChatInputBox";
 import {useEffect, useRef, useState} from "react";
 import {auth} from '../src/libs/firebase/auth'
@@ -8,11 +8,6 @@ import NavBarLayout from "../src/components/NavBarLayout";
 import {useSelector} from "react-redux";
 import temporaryJson from "../src/assets/settingDataJson.json";
 
-interface selectorClearChatToggle{
-    clearChatsReducer:{
-        toggle:boolean
-    }
-}
 
 export default function Chat(){
     const chatInputRef = useRef<HTMLInputElement>(null);
@@ -71,7 +66,7 @@ export default function Chat(){
 
     return (
         <NavBarLayout>
-           <div className={'w-full flex-col flex mx-2'}>
+           <div className={'w-full flex-col flex mx-2 mt-3'}>
                <div className={`flex-col flex-1 max-h-[85vh] space-y-3 scroll-auto overflow-auto relative mx-3 pb-3`} ref={chatsDivRef}>
                    {previousChats.map((item,index)=> {
                        if (index !== previousChats.length-1) {

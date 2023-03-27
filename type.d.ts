@@ -46,3 +46,17 @@ export interface ChatObject {
     content:string;
     role:'user' | 'assistant';
 }
+
+
+// WebView
+
+export type webViewRouteType = ''|'chat' | 'profile' | 'setting-benefit' | 'sign-in' | 'information-info' | 'delete'
+
+
+// Redux
+
+export interface selectorClearChatToggle{
+    clearChatsReducer:{
+        toggle:boolean
+    }
+}
