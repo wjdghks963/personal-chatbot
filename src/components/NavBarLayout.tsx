@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 
 export default function NavBarLayout({children, styleAdd}:{children:React.ReactNode, styleAdd?:string}){
     const router = useRouter();
-    const isMobile = isWebView();
+    const isMobile = typeof window !== 'undefined' ? isWebView() : false;
     const dispatch = useDispatch();
 
     useEffect(()=>{
