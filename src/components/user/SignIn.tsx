@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 import {isWebView} from "../../utils/MobileBridge";
 
 
-type ProviderMapKey = 'google' | 'email' | 'anonymous';
+type ProviderMapKey = 'google' | 'emailSignUp' | 'emailSignIn' | 'anonymous';
 export type ProviderMapObject = {bgColor:string, svg?: { src:string }, signinFn:any, convertToPermanent?:any}
 
 
@@ -22,12 +22,12 @@ export function SignIn({isConvert}:{isConvert?:boolean}){
         signinFn:signInWithGoogle,
         // convertToPermanent: signAnonymousToGooglePermanent
     })
-    ProviderMap.set('email', {
+    ProviderMap.set('emailSignUp', {
         bgColor:'bg-white',
         svg:email,
         signinFn: ()=> router.push('sign-up')
     })
-    ProviderMap.set('email', {
+    ProviderMap.set('emailSignIn', {
         bgColor:'bg-white',
         svg:email,
         signinFn: ()=> router.push('sign-in')
@@ -42,8 +42,8 @@ export function SignIn({isConvert}:{isConvert?:boolean}){
 
     return (
         <div className={'flex-col w-2/3 mx-auto my-20 space-y-10'}>
-            <LoginWithProvider providerMap={ProviderMap.get('email')} providerKey={'이메일 만들고'}/>
-            <LoginWithProvider providerMap={ProviderMap.get('email')} providerKey={'가입한 이메일로'}/>
+            <LoginWithProvider providerMap={ProviderMap.get('emailSignUp')} providerKey={'이메일 만들고'}/>
+            <LoginWithProvider providerMap={ProviderMap.get('emailSignIn')} providerKey={'가입한 이메일로'}/>
             {isMobile ? null : <LoginWithProvider providerMap={ProviderMap.get('google')} providerKey={'google'} isConvert={isConvert}/>}
             {isConvert ? null : <LoginWithProvider providerMap={ProviderMap.get('anonymous')} providerKey={'익명'}/>}
 
