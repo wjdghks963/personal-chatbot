@@ -1,13 +1,19 @@
 import {
+    browserLocalPersistence,
+    createUserWithEmailAndPassword,
     getAuth,
+    getRedirectResult,
     GoogleAuthProvider,
-    getRedirectResult, signInWithPopup,
-    onAuthStateChanged,  browserLocalPersistence, setPersistence,
-    signInAnonymously
+    onAuthStateChanged,
+    setPersistence,
+    signInAnonymously,
+    signInWithEmailAndPassword,
+    signInWithRedirect
 } from "firebase/auth";
 import {FireBaseApp} from "./Firebase"
 
 export const auth = getAuth(FireBaseApp);
+
 const GoogleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () =>{
@@ -15,12 +21,13 @@ export const signInWithGoogle = async () =>{
 
     return setPersistence(auth, browserLocalPersistence).then(async()=>{
         try{
-            const result = await signInWithPopup(auth, GoogleProvider)
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const user = result?.user;
-            const idToken = credential?.idToken
-
-            return {user, idToken}
+            // const result = await signInWithPopup(auth, GoogleProvider)
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
+            // const user = result?.user;
+            // const idToken = credential?.idToken
+            //
+            // return {user, idToken}
+            await signInWithRedirect(auth, GoogleProvider);
         }catch (error : any){
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -59,11 +66,6 @@ export const signInWithAnonymous = async ( )=>{
     }
 }
 
-export const signAnonymousToGooglePermanent =  (idToken:string) =>{
-
-    return GoogleAuthProvider.credential(idToken);
-}
-
 export const logout = () =>{
     if(auth.currentUser?.isAnonymous){
         return auth.currentUser.delete();
@@ -79,4 +81,23 @@ export const isAuthLoggedIn = () =>{
      onAuthStateChanged(auth, (user)=>{
         return user;
     })
+}
+
+
+export const createUser = async (email:string, password:string) =>{
+    try{
+        return await createUserWithEmailAndPassword(auth, email, password);
+    }catch (e:any){
+        console.log(e);
+        return {error:e};
+    }
+}
+
+export const signInWithEmailPassword = async (email:string, password:string) =>{
+    try{
+       return await signInWithEmailAndPassword(auth,email, password);
+    }catch (e:any){
+        console.log(e);
+        return {error:e};
+    }
 }
