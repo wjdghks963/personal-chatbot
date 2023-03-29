@@ -7,7 +7,7 @@ import {
     onAuthStateChanged,
     setPersistence,
     signInAnonymously,
-    signInWithEmailAndPassword,
+    signInWithEmailAndPassword, signInWithPopup,
     signInWithRedirect
 } from "firebase/auth";
 import {FireBaseApp} from "./Firebase"
@@ -21,13 +21,12 @@ export const signInWithGoogle = async () =>{
 
     return setPersistence(auth, browserLocalPersistence).then(async()=>{
         try{
-            // const result = await signInWithPopup(auth, GoogleProvider)
-            // const credential = GoogleAuthProvider.credentialFromResult(result);
-            // const user = result?.user;
-            // const idToken = credential?.idToken
-            //
-            // return {user, idToken}
-            await signInWithRedirect(auth, GoogleProvider);
+            const result = await signInWithPopup(auth, GoogleProvider)
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const user = result?.user;
+            const idToken = credential?.idToken
+
+            return {user, idToken}
         }catch (error : any){
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -37,26 +36,6 @@ export const signInWithGoogle = async () =>{
     })
 
 }
-
-export const signInWithGoogleResult = async ()=>{
-    try{
-        const result = await getRedirectResult(auth);
-
-        if (result) {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            const user = result?.user;
-            return {user, token}
-        }
-
-    }catch (error : any){
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        return {errorCode, errorMessage}
-    }
-}
-
 
 export const signInWithAnonymous = async ( )=>{
     try{
@@ -73,8 +52,13 @@ export const logout = () =>{
     return auth.signOut();
 }
 
-export const withDrawalUser =  () =>{
-    return auth.currentUser?.delete()
+export const withDrawlUser = async () =>{
+    try{
+        return await auth.currentUser?.delete();
+    }catch (e:any){
+        console.log(e)
+        return {error:e};
+    }
 }
 
 export const isAuthLoggedIn = () =>{
@@ -94,10 +78,14 @@ export const createUser = async (email:string, password:string) =>{
 }
 
 export const signInWithEmailPassword = async (email:string, password:string) =>{
-    try{
-       return await signInWithEmailAndPassword(auth,email, password);
-    }catch (e:any){
-        console.log(e);
-        return {error:e};
-    }
+
+    return setPersistence(auth, browserLocalPersistence).then(async()=>{
+        try{
+            return await signInWithEmailAndPassword(auth,email, password);
+        }catch (error : any){
+            console.log(error);
+            return {error:error};
+        }
+    })
+
 }
