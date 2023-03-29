@@ -1,7 +1,11 @@
+import NavBarLayout from "../src/components/NavBarLayout";
+
 export  default function InformationInfo () {
 
-    return <div>
-        <h1>오류</h1>
+    return(
+        <NavBarLayout styleAdd={'flex-col items-center justify-center'}>
+            <span>준비중..</span>
+        </NavBarLayout>
+        )
 
-    </div>
-}
+    }

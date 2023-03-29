@@ -41,8 +41,6 @@ export default function NavBar(){
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
                     </svg>
-
-
                     <span className="font-semibold text-xl tracking-tight">OA</span>
                 </div>
                 <div className="block" onClick={toggleMenuBar}>
