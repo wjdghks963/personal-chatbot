@@ -53,6 +53,7 @@ export const logout = () =>{
 }
 
 export const withDrawlUser = async () =>{
+    if(auth.currentUser?.isAnonymous) return
     try{
         drawlUserDeleteSettingData(auth.currentUser?.email as string);
         return await auth.currentUser?.delete();
