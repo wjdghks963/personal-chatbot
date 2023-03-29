@@ -1,6 +1,7 @@
 import google from "../../assets/google.svg";
 import email from "../../assets/email.svg"
 import anonymous from "../../assets/anonymous.svg"
+import signIn from "../../assets/signIn.svg"
 import { signInWithAnonymous, signInWithGoogle} from "../../libs/firebase/auth";
 import LoginWithProvider from "../LoginWithProvider"
 import {useRouter} from "next/router";
@@ -29,7 +30,7 @@ export function SignIn({isConvert}:{isConvert?:boolean}){
     })
     ProviderMap.set('emailSignIn', {
         bgColor:'bg-white',
-        svg:email,
+        svg:signIn,
         signinFn: ()=> router.push('/user/sign-in')
     })
     ProviderMap.set('anonymous', {

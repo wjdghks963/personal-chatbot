@@ -31,9 +31,10 @@ export default function SignInPage(){
             const result = await signInWithEmailPassword(emailValue, passwordValue);
             // @ts-ignore
             if(result?.error){
-                setError('이메일이나 비밀번호를 다시 한번 확인해주세요');
+                // @ts-ignore
+                setError(result?.error);
             }else{
-                return router.replace('/chat');
+               return router.replace('/chat');
             }
         }else{
             setError('이메일이나 비밀번호를 다시 한번 확인해주세요');

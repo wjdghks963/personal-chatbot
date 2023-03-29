@@ -9,7 +9,7 @@ export default function Home() {
     const router = useRouter();
 
     const goToProfile = () =>{
-        return router.replace('/profile');
+        return router.replace('/user/profile');
     }
 
     useEffect(() => {

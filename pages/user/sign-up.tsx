@@ -34,7 +34,8 @@ export default function SignUpPage(){
            const result = await createUser(emailValue, passwordValue);
             // @ts-ignore
             if(result?.error){
-                setError('이미 존재하는 이메일입니다.');
+                // @ts-ignore
+                setError(result.error);
             }else{
                 return router.replace('/chat');
             }
