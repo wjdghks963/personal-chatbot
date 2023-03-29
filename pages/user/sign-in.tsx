@@ -1,6 +1,6 @@
-import TextInputBox from "../src/components/TextInputBox";
+import TextInputBox from "../../src/components/TextInputBox";
 import {useRef, useState} from "react";
-import { signInWithEmailPassword} from "../src/libs/firebase/auth";
+import { signInWithEmailPassword} from "../../src/libs/firebase/auth";
 import {useRouter} from "next/router";
 
 

@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {auth, logout} from '../src/libs/firebase/auth';
-import NavBarLayout from "../src/components/NavBarLayout";
+import {auth, logout} from '../../src/libs/firebase/auth';
+import NavBarLayout from "../../src/components/NavBarLayout";
 import {onAuthStateChanged} from "firebase/auth";
-import { SignIn } from "../src/components/user/SignIn";
-import {getSetting} from "../src/libs/firebase/firestorage";
-import SettingForm from "../src/components/SettingForm";
-import temporaryJson from "../src/assets/settingDataJson.json"
-import IsLoggedInSpan from "../src/components/user/IsLoggedInSpan";
+import { SignIn } from "../../src/components/user/SignIn";
+import {getSetting} from "../../src/libs/firebase/firestorage";
+import SettingForm from "../../src/components/SettingForm";
+import temporaryJson from "../../src/assets/settingDataJson.json"
+import IsLoggedInSpan from "../../src/components/user/IsLoggedInSpan";
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);

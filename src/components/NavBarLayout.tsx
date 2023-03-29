@@ -19,6 +19,7 @@ export default function NavBarLayout({children, styleAdd}:{children:React.ReactN
                     case '':
                     case 'profile':
                     case 'information-info' :{
+                        if('profile') return router.push('/user/profile');
                         return router.push(`/${data}`);
                     }
                     case 'chat' : {

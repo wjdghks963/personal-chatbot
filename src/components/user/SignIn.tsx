@@ -25,12 +25,12 @@ export function SignIn({isConvert}:{isConvert?:boolean}){
     ProviderMap.set('emailSignUp', {
         bgColor:'bg-white',
         svg:email,
-        signinFn: ()=> router.push('sign-up')
+        signinFn: ()=> router.push('/user/sign-up')
     })
     ProviderMap.set('emailSignIn', {
         bgColor:'bg-white',
         svg:email,
-        signinFn: ()=> router.push('sign-in')
+        signinFn: ()=> router.push('/user/sign-in')
     })
     ProviderMap.set('anonymous', {
         bgColor:'bg-white',

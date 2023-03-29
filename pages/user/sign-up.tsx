@@ -1,6 +1,6 @@
-import TextInputBox from "../src/components/TextInputBox";
+import TextInputBox from "../../src/components/TextInputBox";
 import {useRef, useState} from "react";
-import {createUser} from "../src/libs/firebase/auth";
+import {createUser} from "../../src/libs/firebase/auth";
 import {useRouter} from "next/router";
 
 
