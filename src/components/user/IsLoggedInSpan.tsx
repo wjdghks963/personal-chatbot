@@ -5,7 +5,6 @@ export default function IsLoggedInSpan(){
 
     const withDrawlOnClick =  () =>{
         const result = withDrawlUser();
-        drawlUserDeleteSettingData(auth.currentUser?.email as string);
         console.log(result);
     }
 

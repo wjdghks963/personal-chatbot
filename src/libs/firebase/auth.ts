@@ -9,6 +9,7 @@ import {
     signInWithEmailAndPassword, signInWithPopup, UserCredential,
 } from "firebase/auth";
 import {FireBaseApp} from "./Firebase"
+import {drawlUserDeleteSettingData} from "./firestorage";
 
 export const auth = getAuth(FireBaseApp);
 
@@ -53,7 +54,7 @@ export const logout = () =>{
 
 export const withDrawlUser = async () =>{
     try{
-        // TODO: db 관련 데이터 삭제
+        drawlUserDeleteSettingData(auth.currentUser?.email as string);
         return await auth.currentUser?.delete();
     }catch (e:any){
         console.log(e)
