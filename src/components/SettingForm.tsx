@@ -39,7 +39,10 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             presencePenalty:presencePenalty ?? '1'
         }
         if(!auth.currentUser?.isAnonymous){
-            await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
+            const result = await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
+            if(result?.error){
+                alert(result?.error);
+            }
         }
 
         setSettingDataJson(settingDataJson);
