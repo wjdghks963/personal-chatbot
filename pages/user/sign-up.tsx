@@ -2,6 +2,7 @@ import TextInputBox from "../../src/components/TextInputBox";
 import {useRef, useState} from "react";
 import {createUser} from "../../src/libs/firebase/auth";
 import {useRouter} from "next/router";
+import {SignLoading} from "../../src/components/user/SignLoading";
 
 
 export default function SignUpPage(){
@@ -9,6 +10,7 @@ export default function SignUpPage(){
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -31,7 +33,9 @@ export default function SignUpPage(){
         const isPasswordSame = passwordValue === passwordConfirmValue;
 
         if(isEmailOk && isPasswordSame) {
+            setLoading(true)
            const result = await createUser(emailValue, passwordValue);
+            if(result) setLoading(false);
             // @ts-ignore
             if(result?.error){
                 // @ts-ignore
@@ -50,7 +54,7 @@ export default function SignUpPage(){
             <TextInputBox typeOf={'email'} propertyRef={emailRef} identity={"이메일"} placeholder={'사용할 이메일'} inputStyleAdd={'w-2/3'}/>
             <TextInputBox typeOf={'password'} propertyRef={passwordRef} identity={"비밀번호"} placeholder={'사용할 비밀번호'} inputStyleAdd={'w-2/3'}/>
             <TextInputBox typeOf={'password'} propertyRef={passwordConfirmRef} identity={"비밀번호 확인"} placeholder={'사용할 비밀번호'} inputStyleAdd={'w-2/3'}/>
-
+        {loading ? <SignLoading/>:null}
             <button onClick={onSubmit} className={"mx-auto py-3 px-10 mt-10 block border-blue shadow-md"}>가입</button>
                 <span className={'mx-auto mt-10 font-extrabold text-red-500'}>{error}</span>
     </div>
