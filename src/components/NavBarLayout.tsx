@@ -16,12 +16,14 @@ export default function NavBarLayout({children, styleAdd}:{children:React.ReactN
     useEffect(()=>{
         isMobile  ? (window as any).webviewNav = function(data:webViewRouteType) {
             switch (data){
-                    case '':
-                    case 'information-info' :{
+                    case '': {
                         return router.push(`/${data}`);
                     }
                     case 'profile':{
                         return router.push(`/user/${data}`);
+                    }
+                    case 'information-info' :{
+                        return router.push(`/information/${data}`)
                     }
                     case 'chat' : {
                         if(auth.currentUser !== null) {

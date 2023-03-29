@@ -32,7 +32,7 @@ export default function Home() {
                         <span className={'block mb-3'}>안녕하세요</span>
                         <span className={'block mb-2'}>OA는 chatGPT에서 알지 못해 설정하기 어려웠던 Penalty, Top_p 등과 같은 설정들을 보기 쉽게 표현해 설정해 사용하기 쉽게 하기 위해 만들었습니다.</span>
                         <span>AI에게 이름을 부여하거나 역할을 부여해 자신만의 AI를 만들 수도 있습니다.</span>
-                        <Link href={'/setting-benefit'}>
+                        <Link href={'/information/setting-benefit'}>
                             <span className={`block underline text-blue-300 mt-5`}>설정을 하는 이유</span>
                         </Link>
                         <button className={'font-medium mx-auto block border-blue p-3 my-5'} onClick={goToProfile}>시작하기</button>
