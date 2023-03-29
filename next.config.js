@@ -8,9 +8,6 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-const productionURL = 'https://personal-chatbot.pages.dev/';
-const isProduction = process.env.NODE_ENV === "production";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,

@@ -68,7 +68,7 @@ export const isAuthLoggedIn = () =>{
 }
 
 
-export const createUser = async (email:string, password:string): Promise<UserCredential | { error: string }>  =>{
+export const createUser = async (email:string, password:string) =>{
     try{
         return await createUserWithEmailAndPassword(auth, email, password);
     }catch (e:any){
@@ -77,7 +77,7 @@ export const createUser = async (email:string, password:string): Promise<UserCre
     }
 }
 
-export const signInWithEmailPassword = async (email:string, password:string): Promise<UserCredential | { error: string }>  =>{
+export const signInWithEmailPassword = async (email:string, password:string)  =>{
 
     return setPersistence(auth, browserLocalPersistence).then(async()=>{
         try{
