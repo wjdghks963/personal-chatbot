@@ -1,9 +1,12 @@
-import {auth, withDrawalUser} from "../../libs/firebase/auth";
+import {auth, withDrawlUser} from "../../libs/firebase/auth";
+import {drawlUserDeleteSettingData} from "../../libs/firebase/firestorage";
 
 export default function IsLoggedInSpan(){
 
-    const withDrawlOnClick = () =>{
-        withDrawalUser()
+    const withDrawlOnClick =  () =>{
+        const result = withDrawlUser();
+        drawlUserDeleteSettingData(auth.currentUser?.email as string);
+        console.log(result);
     }
 
     return (
