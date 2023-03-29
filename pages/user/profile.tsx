@@ -8,11 +8,13 @@ import SettingForm from "../../src/components/SettingForm";
 import temporaryJson from "../../src/assets/settingDataJson.json"
 import IsLoggedInSpan from "../../src/components/user/IsLoggedInSpan";
 import {getSettingDataJson, setSettingDataJson} from "../../src/utils/localStorage";
+import {SettingDataJson} from "../../type"
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
     const [formToggle,setFormToggle] = useState<boolean>(false);
-    const [name, setName] = useState('유저');
+    // @ts-ignore
+    const [data, setData] = useState<SettingDataJson>(temporaryJson);
 
 
 
@@ -20,15 +22,15 @@ export default  function Profile(){
         try{
             const settingData = await getSetting(email ?? "");
             if(settingData?.userName === "") {
-                setName(auth.currentUser?.displayName!)
+                setData(prev=>({...prev, userName:auth.currentUser?.displayName!}));
             }else{
-                setName(settingData?.userName);
+                setData(prev=>({...prev, userName:settingData?.userName}));
             }
             if(settingData === undefined) return temporaryJson
             return settingData
         } catch (e:any){
             console.log(e)
-            setName("유저")
+            setData(prev=>({...prev, userName:"유저"}));
             return temporaryJson
         }
 
@@ -38,10 +40,7 @@ export default  function Profile(){
     useEffect( ()=>{
         onAuthStateChanged(auth, user=>{
             if(user){
-                if(user.isAnonymous){
-                    setName('익명')
-                    setSettingDataJson(temporaryJson)
-                }else{
+                if(!user.isAnonymous){
                     getAuthSettingData(user.email).then(settingData=>{
                         setSettingDataJson(settingData);
                     })
@@ -51,11 +50,11 @@ export default  function Profile(){
                 return setIsLoggedIn(false)
             }
         })
-    },[auth.currentUser, isLoggedIn, name])
+    },[auth.currentUser, isLoggedIn])
 
     useEffect(()=>{
         const localData = getSettingDataJson();
-        setName(localData?.userName)
+        setData(localData);
     },[formToggle])
 
     return(
@@ -65,9 +64,10 @@ export default  function Profile(){
             <div className={`flex w-full h-full ${formToggle ? 'popupOpen' : null} `}>
                 {!isLoggedIn ? <SignIn/> : (
                     <div className={`w-full flex-col space-y-12 text-center flex-grow my-32 `}>
-                        <div className={'flex-col flex-none'}>
-                            <span className={`block font-semibold`}>{name}</span>
-                            {/*{isAnonymous ? <Link href={'/sign-in'}><span className={'block mt-3'}>가입하기</span></Link> : <span className={`block font-semibold`}>{auth.currentUser?.email}</span>}*/}
+                        <div className={'flex-col flex-none space-y-3'}>
+                            <span className={`block font-semibold`}>내 이름은 {data.userName}</span>
+                            <span className={`block font-semibold`}>AI의 이름은 {data.aiName}</span>
+                            <span className={`block font-semibold`}>AI의 역할은 {data.concepts}</span>
                             <IsLoggedInSpan/>
                         </div>
                         <div className={'flex-col space-y-3'}>
