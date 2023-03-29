@@ -7,6 +7,7 @@ import {getSetting} from "../../src/libs/firebase/firestorage";
 import SettingForm from "../../src/components/SettingForm";
 import temporaryJson from "../../src/assets/settingDataJson.json"
 import IsLoggedInSpan from "../../src/components/user/IsLoggedInSpan";
+import {getSettingDataJson, setSettingDataJson} from "../../src/utils/localStorage";
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
@@ -15,15 +16,16 @@ export default  function Profile(){
 
 
 
-
     const getAuthSettingData = async (email:string|null) => {
         try{
             const settingData = await getSetting(email ?? "");
             if(settingData?.userName === "") {
                 setName(auth.currentUser?.displayName!)
+            }else{
+                setName(settingData?.userName);
             }
             if(settingData === undefined) return temporaryJson
-        return settingData
+            return settingData
         } catch (e:any){
             console.log(e)
             setName("유저")
@@ -34,16 +36,14 @@ export default  function Profile(){
 
 
     useEffect( ()=>{
-
         onAuthStateChanged(auth, user=>{
             if(user){
                 if(user.isAnonymous){
                     setName('익명')
-                    localStorage.setItem('settingDataJson', JSON.stringify(temporaryJson));
+                    setSettingDataJson(temporaryJson)
                 }else{
                     getAuthSettingData(user.email).then(settingData=>{
-                        const json = JSON.stringify(settingData)
-                         localStorage.setItem('settingDataJson',json)
+                        setSettingDataJson(settingData);
                     })
                 }
                 return setIsLoggedIn(true);
@@ -51,7 +51,12 @@ export default  function Profile(){
                 return setIsLoggedIn(false)
             }
         })
-    },[auth.currentUser, isLoggedIn,name])
+    },[auth.currentUser, isLoggedIn, name])
+
+    useEffect(()=>{
+        const localData = getSettingDataJson();
+        setName(localData?.userName)
+    },[formToggle])
 
     return(
 

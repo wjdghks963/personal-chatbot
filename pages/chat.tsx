@@ -6,7 +6,7 @@ import fetchPost from "../src/utils/fetchPost";
 import ChatBubble from "../src/components/chat/ChatBubble";
 import NavBarLayout from "../src/components/NavBarLayout";
 import {useSelector} from "react-redux";
-import temporaryJson from "../src/assets/settingDataJson.json";
+import {getSettingDataJson} from "../src/utils/localStorage";
 
 
 export default function Chat(){
@@ -31,7 +31,8 @@ export default function Chat(){
         chatInputRef.current!.value = '';
 
 
-        const settingDataJson:SettingDataJson = localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : temporaryJson;
+        const settingDataJson:SettingDataJson = getSettingDataJson()
+            //localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : temporaryJson;
         const isRoleUser:ChatObject[] = previousChats.filter(chat => chat.role === 'user');
         const previousPrompt = isRoleUser.length === 0 ? '' : isRoleUser[isRoleUser.length-1].content;
 

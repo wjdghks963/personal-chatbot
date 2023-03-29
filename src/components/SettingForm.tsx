@@ -4,7 +4,7 @@ import {Dispatch, SetStateAction, useEffect, useRef} from "react";
 import {AIName, Concept, SettingDataJson, UserName} from "../../type";
 import {settingTransaction} from "../libs/firebase/firestorage";
 import {auth} from "../libs/firebase/auth"
-import temporaryJson from "../assets/settingDataJson.json";
+import {getSettingDataJson, setSettingDataJson} from "../utils/localStorage";
 
 
 
@@ -15,6 +15,12 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
     const topPRef = useRef<HTMLInputElement>(null);
     const frequencyPenaltyRef = useRef<HTMLInputElement>(null);
     const presencePenaltyRef = useRef<HTMLInputElement>(null);
+
+
+    const closeForm = () =>{
+        // @ts-ignore
+        return setFormToggle(false)
+    }
 
     const onSubmit = async () => {
         const userName = userNameRef?.current?.value;
@@ -32,22 +38,21 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             frequencyPenalty:frequencyPenalty ?? '1',
             presencePenalty:presencePenalty ?? '1'
         }
-
         if(!auth.currentUser?.isAnonymous){
             await settingTransaction(auth.currentUser?.email ?? "", settingDataJson);
         }
 
-        localStorage.setItem('settingDataJson', JSON.stringify(settingDataJson));
+        setSettingDataJson(settingDataJson);
 
         if(setFormToggle){
-            return setFormToggle(false)
+            return closeForm();
         }
     }
 
 
     useEffect(()=>{
 
-        const settingDataJson:SettingDataJson = JSON.parse(localStorage.getItem('settingDataJson') ?? JSON.stringify(temporaryJson)) ;
+        const settingDataJson:SettingDataJson = getSettingDataJson()
 
         userNameRef.current!.value = settingDataJson.userName;
         aiNameRef.current!.value = settingDataJson.aiName;
@@ -67,7 +72,10 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             <ValueInputBox propertyRef={frequencyPenaltyRef} identity={"일관성"} range={{max:2, min:-2}}/>
             <ValueInputBox propertyRef={presencePenaltyRef} identity={"중복성"} range={{max:2, min:-2}}/>
 
-            <button onClick={onSubmit} className={"mx-auto py-3 px-10 mb-3 block  border-blue shadow-md"}>저장</button>
+            <div className={'flex'}>
+                <button onClick={onSubmit} className={"mx-auto py-3 px-10 mb-3 block  border-blue shadow-md"}>저장</button>
+                <button onClick={closeForm} className={"mx-auto py-3 px-10 mb-3 block  border-blue shadow-md"}>닫기</button>
+            </div>
         </div>
     )
 }
