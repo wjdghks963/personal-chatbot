@@ -34,7 +34,7 @@ export default function ChatBubble({role, content, loading}:ChatBubbleObject){
     return (
         <div className={`flex-col`}>
                 <span className={`block font-semibold mb-3`}>{name}</span>
-                <span className={`block border-blue ${bgByRole(role)} p-2`}>{loading ? '입력 중...':content}</span>
+            <span className={`block border-blue ${bgByRole(role)} p-2`}>{loading ? <span className={'block animate-bounce text-white'}>입력 중...</span>:content}</span>
         </div>
     )
 }
