@@ -71,9 +71,9 @@ export default function SettingForm({setFormToggle}:{setFormToggle?: Dispatch<Se
             <TextInputBox<UserName> typeOf={'text'} propertyRef={userNameRef} identity={"유저 이름"} placeholder={"유저 이름"}/>
             <TextInputBox<AIName> typeOf={'text'} propertyRef={aiNameRef} identity={"AI 이름"} placeholder={"AI 이름"}/>
             <TextInputBox<Concept> typeOf={'text'} propertyRef={conceptRef} identity={"컨셉"} placeholder={"ex) 의사 개발자"}/>
-            <ValueInputBox propertyRef={topPRef} identity={"다양성"} range={{max:1, min:0}}/>
+            <ValueInputBox propertyRef={topPRef} identity={"랜덤성"} range={{max:1, min:0}}/>
             <ValueInputBox propertyRef={frequencyPenaltyRef} identity={"일관성"} range={{max:2, min:-2}}/>
-            <ValueInputBox propertyRef={presencePenaltyRef} identity={"중복성"} range={{max:2, min:-2}}/>
+            <ValueInputBox propertyRef={presencePenaltyRef} identity={"다양성"} range={{max:2, min:-2}}/>
 
             <div className={'flex'}>
                 <button onClick={onSubmit} className={"mx-auto py-3 px-10 mb-3 block  border-blue shadow-md"}>저장</button>

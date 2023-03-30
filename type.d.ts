@@ -7,7 +7,7 @@ type Concept = string;
 
 interface InputBoxProps {
     propertyRef: RefObject<HTMLInputElement>
-    identity?: "다양성" | "일관성" | "중복성" | string
+    identity?: "다양성" | "일관성" | "랜덤성" | string
 }
 
 interface SettingDataJson {

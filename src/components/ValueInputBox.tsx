@@ -14,7 +14,7 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
    const description  = () =>{
        let text = ""
        switch (identity){
-           case "다양성":{
+           case "랜덤성":{
                text = "무작위성을 가지면서도 일관된 결과를 생성하는 수치로 높은 값은 출력을 더 무작위로 만들고 낮은 값은 더 집중적이고 결정적으로 만듭니다.";
                break;
            }
@@ -22,7 +22,7 @@ export default function ValueInputBox<T>({propertyRef, identity, range}:ValueInp
                text = "특정 단어나 구문을 사용할 가능성을 낮추는 수치로 값이 높을수록 모델이 자주 사용하는 단어나 구문을 피하려고 합니다."
                break;
            }
-           case "중복성":{
+           case "다양성":{
             text = "반복되는 단어나 구문을 피하기 위해 사용되는 수치로 값이 높을수록 이전 대화에서 사용한 단어나 구문을 더 피하려고 합니다."
                break;
            }
