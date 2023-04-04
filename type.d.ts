@@ -55,6 +55,11 @@ export type webViewRouteType = ''|'chat' | 'profile' | 'setting-benefit' | 'sign
 
 // Redux
 
+export interface ReduxSliceState {
+    alertDialogReducer:{toggle:boolean, alertName:string, okFn:()=>void }
+    clearChatsReducer:{toggle:boolean}
+}
+
 export interface selectorClearChatToggle{
     clearChatsReducer:{
         toggle:boolean

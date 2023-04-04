@@ -1,16 +1,20 @@
 import {ProviderMapObject} from "./user/SignIn";
 import Image from "next/image";
+import {useDispatch} from "react-redux";
+import {setAlert} from "../../store/modules/AlertDialogSlice";
 
 export default function LoginWithProvider({providerMap, providerKey,isConvert}:{providerMap?:ProviderMapObject, providerKey:string,isConvert?:boolean}){
 
-    const onClick = async ()=>{
-        const userInfo = await providerMap?.signinFn();
+    const dispatch = useDispatch();
 
-        if(isConvert){
-            return await providerMap?.convertToPermanent(userInfo.idToken)
-        }else{
-            return userInfo
+    const onClick = async ()=>{
+
+        if(providerKey === "익명"){
+            const loginFn = async() => await providerMap?.signinFn();
+            dispatch(setAlert({alertName:"익명 로그인", toggle:true, okFn:loginFn}))
+            return;
         }
+        await providerMap?.signinFn();
     }
 
     return (

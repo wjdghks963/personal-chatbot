@@ -1,14 +1,14 @@
 import { AnyAction, CombinedState, combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import clearChatsReducer from './clearChats';
+import alertDialogReducer from "./AlertDialogSlice";
+import {ReduxSliceState} from "../../type";
 
 
-interface ReduxSliceState {
-    clearChatsReducer:{toggle:boolean}
-}
+
 
 const reducer = (
-    state: any,
+    state: ReduxSliceState,
     action: AnyAction
 ): CombinedState<ReduxSliceState> => {
     if (action.type === HYDRATE) {
@@ -20,7 +20,8 @@ const reducer = (
 
     // slcie한 reducer 모듈을 결합한다.
     return combineReducers({
-        clearChatsReducer
+        clearChatsReducer,
+        alertDialogReducer
     })(state, action);
 };
 
