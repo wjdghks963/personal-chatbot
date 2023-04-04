@@ -8,7 +8,9 @@ import SettingForm from "../../src/components/SettingForm";
 import temporaryJson from "../../src/assets/settingDataJson.json"
 import IsLoggedInSpan from "../../src/components/user/IsLoggedInSpan";
 import {getSettingDataJson, setSettingDataJson} from "../../src/utils/localStorage";
-import {SettingDataJson} from "../../type"
+import {ReduxSliceState, SettingDataJson} from "../../type"
+import AlertDialog from "../../src/components/AlertDialog";
+import {useSelector} from "react-redux";
 
 export default  function Profile(){
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser);
@@ -16,6 +18,8 @@ export default  function Profile(){
     // @ts-ignore
     const [data, setData] = useState<SettingDataJson>(temporaryJson);
 
+    const alertDialogSelector= useSelector((state:ReduxSliceState) => state.alertDialogReducer);
+    let isAlertDialogOpen = alertDialogSelector.alertName === "익명 로그인" && alertDialogSelector.toggle;
 
 
     const getAuthSettingData = async (email:string|null) => {
@@ -60,6 +64,7 @@ export default  function Profile(){
     return(
 
     <NavBarLayout styleAdd={'flex-col items-center justify-center'}>
+        { isAlertDialogOpen ? <AlertDialog okText={"확인"} falseText={"취소"} text={"익명 로그인은 미접속 7일 후 계정이 삭제됩니다."}/> : null}
         {formToggle && <SettingForm setFormToggle={setFormToggle}/>}
             <div className={`flex w-full h-full ${formToggle ? 'popupOpen' : null} `}>
                 {!isLoggedIn ? <SignIn/> : (
