@@ -1,4 +1,11 @@
-import {ChatObject, GenerateRequestBody, OpenAiApiResponse, selectorClearChatToggle, SettingDataJson} from "../type";
+import {
+    ChatObject,
+    GenerateRequestBody,
+    OpenAiApiResponse,
+    ReduxSliceState,
+    selectorClearChatToggle,
+    SettingDataJson
+} from "../type";
 import ChatInputBox from "../src/components/chat/ChatInputBox";
 import {useEffect, useRef, useState} from "react";
 import {auth} from '../src/libs/firebase/auth'
@@ -15,7 +22,7 @@ export default function Chat(){
     const [previousChats, setPreviousChats] = useState<ChatObject[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const chatClearToggle = useSelector((state : selectorClearChatToggle) => state.clearChatsReducer.toggle)
+    const chatClearToggle = useSelector((state : ReduxSliceState) => state.clearChatsReducer.toggle)
 
 
 
@@ -32,7 +39,6 @@ export default function Chat(){
 
 
         const settingDataJson:SettingDataJson = getSettingDataJson()
-            //localStorage.getItem('settingDataJson') ? JSON.parse(localStorage.getItem('settingDataJson')!) : temporaryJson;
         const isRoleUser:ChatObject[] = previousChats.filter(chat => chat.role === 'user');
         const previousPrompt = isRoleUser.length === 0 ? '' : isRoleUser[isRoleUser.length-1].content;
 

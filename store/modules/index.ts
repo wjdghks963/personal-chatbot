@@ -1,6 +1,6 @@
 import { AnyAction, CombinedState, combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-import clearChatsReducer from './clearChats';
+import clearChatsReducer from './ClearChatsSlice';
 import alertDialogReducer from "./AlertDialogSlice";
 import {ReduxSliceState} from "../../type";
 

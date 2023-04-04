@@ -5,7 +5,7 @@ import {isWebView} from "../utils/MobileBridge";
 import {useRouter} from "next/router";
 import { webViewRouteType} from "../../type";
 import {auth} from "../libs/firebase/auth";
-import {setToggle} from "../../store/modules/clearChats";
+import {setClearChatToggle} from "../../store/modules/ClearChatsSlice";
 import {useDispatch} from "react-redux";
 
 export default function NavBarLayout({children, styleAdd}:{children:React.ReactNode, styleAdd?:string}){
@@ -34,7 +34,7 @@ export default function NavBarLayout({children, styleAdd}:{children:React.ReactN
                     }
                     case 'delete' :{
                         localStorage.removeItem('previousChats');
-                        return dispatch(setToggle())
+                        return dispatch(setClearChatToggle())
                     }
                 }
 

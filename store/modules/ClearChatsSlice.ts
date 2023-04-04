@@ -9,11 +9,11 @@ const clearChatsSlice = createSlice({
     name: "clearChats",
     initialState,
     reducers: {
-        setToggle: (state) => {
+        setClearChatToggle: (state) => {
             state.toggle = !state.toggle
         },
     },
 });
 
-export const { setToggle } = clearChatsSlice.actions;
+export const { setClearChatToggle } = clearChatsSlice.actions;
 export default clearChatsSlice.reducer;

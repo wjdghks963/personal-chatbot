@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import { useState} from "react";
 import {useDispatch} from "react-redux";
-import {setToggle} from "../../store/modules/clearChats";
+import {setClearChatToggle} from "../../store/modules/ClearChatsSlice";
 import {auth} from "../libs/firebase/auth";
 
 export default function NavBar(){
@@ -23,7 +23,7 @@ export default function NavBar(){
 
     const clearChats = () =>{
         localStorage.removeItem('previousChats');
-        dispatch(setToggle())
+        dispatch(setClearChatToggle())
         setIsMenubarOpen(pre=>!pre)
         return
     }
