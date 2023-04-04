@@ -15,7 +15,7 @@ export default function SignUpPage(){
     const router = useRouter();
 
     const isEmailValid = (email:string) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return emailRegex.test(email);
     }
 
@@ -54,8 +54,8 @@ export default function SignUpPage(){
             <TextInputBox typeOf={'email'} propertyRef={emailRef} identity={"이메일"} placeholder={'사용할 이메일'} inputStyleAdd={'w-2/3'}/>
             <TextInputBox typeOf={'password'} propertyRef={passwordRef} identity={"비밀번호"} placeholder={'사용할 비밀번호'} inputStyleAdd={'w-2/3'}/>
             <TextInputBox typeOf={'password'} propertyRef={passwordConfirmRef} identity={"비밀번호 확인"} placeholder={'사용할 비밀번호'} inputStyleAdd={'w-2/3'}/>
-        {loading ? <SignLoading/>:null}
+            {loading ? <SignLoading/>:null}
             <button onClick={onSubmit} className={"mx-auto py-3 px-10 mt-10 block border-blue shadow-md"}>가입</button>
-                <span className={'mx-auto mt-10 font-extrabold text-red-500'}>{error}</span>
+            <span className={'mx-auto mt-10 font-extrabold text-red-500'}>{error}</span>
     </div>
 }
