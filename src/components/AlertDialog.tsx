@@ -23,7 +23,7 @@ export default function AlertDialog({text, okText, falseText}:AlertDialog){
     }
 
     return(
-        <div className={'w-1/3 h-1/3 flex-col flex text-center absolute bg-white border-blue'}>
+        <div className={'w-2/3 h-1/3 flex-col flex text-center absolute bg-white border-blue'}>
             <span className={"font-bold block text-xl mt-2"}>{alertDialogSelector.alertName}</span>
             <div className={'flex-col flex h-full mx-2 justify-center text-center'}>
                 <span className={"block text-blue-300 h-3/4 mt-4"}>{text}</span>
