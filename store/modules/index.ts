@@ -3,12 +3,13 @@ import { HYDRATE } from "next-redux-wrapper";
 import clearChatsReducer from './ClearChatsSlice';
 import alertDialogReducer from "./AlertDialogSlice";
 import {ReduxSliceState} from "../../type";
+import {Reducer} from "react";
 
 
 
 
-const reducer = (
-    state: ReduxSliceState,
+const reducer= (
+    state: any,
     action: AnyAction
 ): CombinedState<ReduxSliceState> => {
     if (action.type === HYDRATE) {
