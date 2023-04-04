@@ -44,6 +44,7 @@ export default  function Profile(){
     useEffect( ()=>{
         onAuthStateChanged(auth, user=>{
             if(user){
+                setFormToggle(true)
                 if(!user.isAnonymous){
                     getAuthSettingData(user.email).then(settingData=>{
                         setSettingDataJson(settingData);
@@ -82,7 +83,7 @@ export default  function Profile(){
                     </div>
                     )}
             </div>
-        <span className={`block text-center mx-10 text-slate-400 mb-3`}>
+        <span className={`block w-full text-center mx-10 text-slate-400 pb-3 ${formToggle ? 'popupOpen' : null}`}>
             도움이 필요하시다면 chsw000@gmail.com 로 연락해주세요
         </span>
     </NavBarLayout>
