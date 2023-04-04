@@ -1,4 +1,3 @@
-import {SettingDataJson} from "../../type";
 
 interface ApiFetch<G> {
     url:string,
@@ -27,6 +26,4 @@ export default async function fetchPost<T, G>(params: ApiFetch<G>){
         console.error(error);
         alert(error.message);
     }
-
-
 }
