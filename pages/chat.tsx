@@ -25,7 +25,6 @@ export default function Chat(){
     const chatClearToggle = useSelector((state : ReduxSliceState) => state.clearChatsReducer.toggle)
 
 
-
     const onSubmit = async (event:any) =>{
         event.preventDefault();
         if(loading || chatInputRef?.current?.value === "") return;
@@ -44,14 +43,24 @@ export default function Chat(){
 
         const data = await fetchPost<{ result:OpenAiApiResponse }, GenerateRequestBody >({url:"generate", json:{prompt, previousPrompt, settingDataJson, userEmail: auth.currentUser?.email}})
         setLoading(false);
-        setPreviousChats(prev => {
-            const updatedChats = [...prev];
-            updatedChats[updatedChats.length - 1] = { role: data?.result.choices[0].message.role ?? "assistant", content: data?.result.choices[0].message.content ?? "" };
-            return updatedChats;
-        });
+        if(data?.result.error){
+            setPreviousChats(prev => {
+                const updatedChats = [...prev];
+                updatedChats[updatedChats.length - 1] = { role: "assistant", content: "에러가 발생했습니다. 관리자에게 연락 주세요." };
+                return updatedChats;
+            });
+            return console.error("OPEN AI API 관련 에러가 발생했습니다. ERROR : "+data?.result.error.message);
+        }else{
+            setPreviousChats(prev => {
+                const updatedChats = [...prev];
+                updatedChats[updatedChats.length - 1] = { role: data?.result.choices[0].message.role ?? "assistant", content: data?.result.choices[0].message.content ?? "" };
+                return updatedChats;
+            });
 
-        // 동기적으로 localStorage 저장
-        localStorage.setItem('previousChats', JSON.stringify([...previousChats, { role: "user", content:prompt  }, { role: data?.result.choices[0].message.role ?? "assistant", content: data?.result.choices[0].message.content ?? "" }]));
+            // 동기적으로 localStorage 저장
+            localStorage.setItem('previousChats', JSON.stringify([...previousChats, { role: "user", content:prompt  }, { role: data?.result.choices[0].message.role ?? "assistant", content: data?.result.choices[0].message.content ?? "" }]));
+        }
+
     }
 
     useEffect(()=>{

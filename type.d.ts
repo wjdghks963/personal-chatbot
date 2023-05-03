@@ -30,7 +30,7 @@ export interface GenerateRequestBody {
 type OpenAIApiResponseRole =  'assistant' | 'user'
 type OpenAiApiResponseMessage = { message: {role:OpenAIApiResponseRole,content:string}, finish_reason: 'stop', index:number }
 
-interface OpenAiApiResponse{
+interface OpenAiApiResponse {
 
     id:string;
     object: string;
@@ -38,6 +38,12 @@ interface OpenAiApiResponse{
     model: string;
     usage: { prompt_tokens: number; completion_tokens: number; total_tokens:number },
     choices: OpenAiApiResponseMessage[]
+    error?: {
+        code? : number;
+        message: string;
+        param?: null;
+        type?: string;
+    }
 }
 
 
