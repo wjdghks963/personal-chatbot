@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OA
 
-## Getting Started
+## 사용한 기술 
 
-First, run the development server:
+Next.js, TailwindCSS, Redux, Redux Tool Kit, Open ai api, Firebase auth, storage, cloudflare-pages
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 목적
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open ai api를 이용해 인공지능 챗봇을 만든다. 일반 사람들은 api에서 제공해주는 간단한 세팅을 이용하지 못하기 때문에 chatgpt를 사용하더라도 완전히 자유자재로 이용해 시너지를 뽑아 내고 있다고 생각하기 어렵다.
+때문에 ai의 설정을 쉽게 이해하고 사용할 수 있도록 만든다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+설정을 한다면 조금 더 쉽게 설정을 할 수 있고 설정이라는 것을 몰랐던 사람들에게도 좋은 효과를 나타낼 수 있는 것을 기대해보며 만들었다.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/generate.ts`.
+웹을 먼저 만든 후 앱으로 웹뷰를 만들어 감싼다. 이 repo에서는 Next 웹 기술만 사용했고 개인 컴퓨터 로컬에 간단한 플러터 프로젝트를 가지고 있다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+개인 블로그 회고록 
 
-## Learn More
+1. [앱과 웹 프로젝트를 기획 설계하며](https://www.sabgilnote.xyz/blogs/post/114)
+2. [앱과 웹 프로젝트를 진행하며](https://www.sabgilnote.xyz/blogs/post/116)
 
-To learn more about Next.js, take a look at the following resources:
+## 만들 페이지 및 기능
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] 소개 페이지 -> 어떤 프로젝트인지 어떤 기능이 있는지 어떤 것을 기대하는지 
+  - [x] 만들게 된 이유
+  - [x] 설정을 한다면 뭐가 다르게 되는지
+  - [x] 사용하는 방법
+  
+- [x] 채팅 페이지
+  - [x] 채팅 기능
+  - [x] localStorage를 사용해 채팅 기록 저장
+  - [x] 채팅 기록 삭제 + 웹뷰에서 사용할 수 있도록 브릿지 함수 구현
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [x] 프로필 -> 어떤 프로젝트인지 어떤 기능이 있는지 어떤 것을 기대하는지 
+  - [x] ai 이름, 내 이름, ai 설정 확인 및 수정 가능
+  - [x] firebase를 사용해 회원 가입, 로그인, 익명 가입 가능
